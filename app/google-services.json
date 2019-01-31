@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "399855364022",
+    "firebase_url": "https://reportnotification-70696.firebaseio.com",
+    "project_id": "reportnotification-70696",
+    "storage_bucket": "reportnotification-70696.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399855364022:android:666fb32be0e74c84",
+        "android_client_info": {
+          "package_name": "com.example.chris.reportnotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399855364022-7e4gqm4f99fj43vauvc4ku1l65tg202r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chris.reportnotification",
+            "certificate_hash": "630f3848593e1f0b9441edca81527bfaa151112d"
+          }
+        },
+        {
+          "client_id": "399855364022-v8sd907f48dev0hpgopq1ig96b5j1r3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chris.reportnotification",
+            "certificate_hash": "f1b3008b45238f709e8f850ca0558f72ffce27db"
+          }
+        },
+        {
+          "client_id": "399855364022-ii8gtiul1ec8rf14e99uov3h6vqr7j3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyFpR_6luP6iNSDip7Hl_n5S2PZS4BwP4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399855364022-ii8gtiul1ec8rf14e99uov3h6vqr7j3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
