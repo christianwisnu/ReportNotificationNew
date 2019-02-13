@@ -152,12 +152,12 @@ list jenis kendaraan
 
 lap ekspedisi
 	tgl from - to,
-	kode cust vendor & check all
+	kode cust vendor & check all (WHERE vendor/cust/all)
 	tipe pembayaran (Cash, Credit, DP)
 	status pembayaran (Lunas, Bayar Sebagian, Blm Bayar)
 
 lap pengeluaran
 	tgl from - to,
-	kode cust vendor & check all
+	kode cust vendor & check all (WHERE vendor/cust/all)
 	tipe pembayaran (Cash, Credit, DP)
 	*/

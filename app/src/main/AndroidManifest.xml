@@ -43,6 +43,10 @@
             </intent-filter>
         </service>
 
+        <activity android:name="list.ListVendor"/>
+        <activity android:name="list.ListCustomer"/>
+        <activity android:name="list.ListKapal"/>
+        <activity android:name="list.ListJenisKendaraan"/>
     </application>
 
 </manifest>

@@ -20,4 +20,20 @@ public interface BaseApiService {
     @POST("login.php")
     Call<ResponseBody> loginRequest(@Field("userid") String id,
                                     @Field("password") String pasw);
+
+    @FormUrlEncoded
+    @POST("listVendor.php")
+    Call<JSONResponse> getListVendor(@Field("jenis") String jenis);
+
+    @FormUrlEncoded
+    @POST("listCustomer.php")
+    Call<JSONResponse> getListCust(@Field("jenis") String jenis);
+
+    @FormUrlEncoded
+    @POST("listKapal.php")
+    Call<JSONResponse> getListKapal(@Field("pemilik") String idPemilik);
+
+    @FormUrlEncoded
+    @POST("listJnsKendaraan.php")
+    Call<JSONResponse> getListJnsKndr(@Field("pemilik") String idPemilik);
 }
