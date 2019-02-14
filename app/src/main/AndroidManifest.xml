@@ -28,6 +28,8 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".ReportPengeluaranActivity"/>
         <activity android:name=".ReportEkspedisiActivity"/>
+        <activity android:name=".ReportEkspedisiViewActivity"/>
+        <activity android:name=".ReportEkspedisiViewDetailActivity"/>
         <activity android:name="utilities.ErrorBug"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"/>

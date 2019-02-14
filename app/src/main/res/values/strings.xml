@@ -9,4 +9,13 @@
 
     <string name="err_msg_user">User ID Harus diisi!</string>
     <string name="err_msg_sandi">Password Harus diisi!</string>
+
+    <string name="prompt_tipe_bayar">Pilih Tipe Pembayaran</string>
+
+    <string-array name="tipe_bayar">
+        <item>Semua</item>
+        <item>Cash</item>
+        <item>Credit</item>
+        <item>DP</item>
+    </string-array>
 </resources>

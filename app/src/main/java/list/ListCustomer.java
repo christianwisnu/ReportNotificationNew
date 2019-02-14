@@ -61,7 +61,7 @@ public class ListCustomer extends AppCompatActivity {
     }
 
     private void loadJSON(){
-        mApiService.getListCust("Vendor").enqueue(new Callback<JSONResponse>() {
+        mApiService.getListCust("Customer").enqueue(new Callback<JSONResponse>() {
             @Override
             public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
                 JSONResponse jsonResponse = response.body();
