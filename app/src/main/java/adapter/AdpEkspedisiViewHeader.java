@@ -2,6 +2,7 @@ package adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class AdpEkspedisiViewHeader extends ArrayAdapter<ReportEkspedisiHeaderMo
     private int Resource;
     private ViewHolder holder;
     private Context context;
-    private DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat df2 = new SimpleDateFormat("dd MMMM yyyy");
 
     public AdpEkspedisiViewHeader(Context context, int resource, List<ReportEkspedisiHeaderModel> objects) {
         super(context, resource,  objects);
@@ -51,9 +52,22 @@ public class AdpEkspedisiViewHeader extends ArrayAdapter<ReportEkspedisiHeaderMo
             holder 	= (ViewHolder)v.getTag();
         }
 
-        /*holder.TvNama.setText(columnslist.get(position).getNamaPasien());
-        holder.TvNotrans.setText(String.valueOf(columnslist.get(position).getNomorUrut()));*/
-
+        holder.TvId.setText(columnslist.get(position).getId());
+        Date tglTrans = null;
+        try{
+            tglTrans = new SimpleDateFormat("dd-MM-yyyy").parse(columnslist.get(position).getTanggal());
+        }catch (Exception e) {}
+        holder.TvTgl.setText(df2.format(tglTrans));
+        holder.TvNamaCust.setText("Customer: "+columnslist.get(position).getNamaCust());
+        holder.TvTipeBayar.setText("Tipe Pembayaran: "+columnslist.get(position).getTipeBayar());
+        holder.TvStatusBayar.setText("Status Pembayaran: "+columnslist.get(position).getStatusbayar());
+        if(columnslist.get(position).getStatusbayar().equals("Lunas")){
+            holder.TvStatusBayar.setTextColor(Color.BLUE);
+        }else if(columnslist.get(position).getStatusbayar().equals("Bayar Sebagian")){
+            holder.TvStatusBayar.setTextColor(Color.GREEN);
+        }else if(columnslist.get(position).getStatusbayar().equals("Belum Bayar")){
+            holder.TvStatusBayar.setTextColor(Color.RED);
+        }
         return v;
     }
 

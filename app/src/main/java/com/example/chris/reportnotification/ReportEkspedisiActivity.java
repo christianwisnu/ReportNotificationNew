@@ -13,7 +13,9 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,8 +40,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import adapter.AdpEkspedisiViewHeader;
 import list.ListCustomer;
 import model.ReportEkspedisiHeaderModel;
+import model.ReportEkspedisiItemBayarModel;
 import model.ReportEkspedisiItemModel;
 import model.ReportEkspedisiModel;
 import utilities.AppController;
@@ -52,6 +56,8 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
     private Spinner spTipebayar;
     private Button btnProses;
     private CheckBox ckAllCust;
+    private ListView lsvData;
+    private TextView txtStatus;
     private boolean allCust = false;
     private Date tglFrom, tglTo;
     private Calendar dateAndTime = Calendar.getInstance();
@@ -61,6 +67,7 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
     private ReportEkspedisiModel model2;
     private String idCust;
     private int RESULT_CUST = 2;
+    private AdpEkspedisiViewHeader adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +82,13 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
         spTipebayar = (Spinner)findViewById(R.id.spViewKriteriareport_eksepedisi_cust);
         btnProses = (Button)findViewById(R.id.btnViewKriteriaEkspedisiProses);
         ckAllCust = (CheckBox)findViewById(R.id.ckAllCust);
+        lsvData = (ListView)findViewById(R.id.LsvReportKriteria);
+        txtStatus = (TextView)findViewById(R.id.TvStatusReportKriteria);
+        model2 = new ReportEkspedisiModel();
 
         edTglFrom.setFocusable(false);
         edTglTo.setFocusable(false);
         edCust.setFocusable(false);
-        model2 = new ReportEkspedisiModel();
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,25 +223,10 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
                     JSONObject jsonrespon = new JSONObject(response);
                     String message = (String) jsonrespon.get("message");
                     if(message.trim().equals("1")){
-                        model2 = new ReportEkspedisiModel();
                         JSONArray JsonHeader = jsonrespon.getJSONArray("header");
                         for (int i = 0; i <JsonHeader.getJSONArray(0).length(); i++) {
                             Object object = JsonHeader.getJSONArray(0).get(i);
                             ReportEkspedisiHeaderModel header 	= new ReportEkspedisiHeaderModel();
-                            header.setId((String)((JSONObject) object).get("ekspedisi_id"));
-                            Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("ekspedisi_tanggal"));
-                            header.setTanggal((df2.format(tglTrans.getTime())));
-                            header.setIdCust((String)((JSONObject) object).get("vendor_customer_id"));
-                            header.setNamaCust((String)((JSONObject) object).get("vendor_customer_name"));
-                            header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
-                            header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
-                            header.setStatusbayar((String)((JSONObject) object).get("status_pembayaran"));
-                            header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
-                            header.setDiskon(new BigDecimal((String)((JSONObject) object).get("diskon")));
-                            header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
-                            header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
-                            header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
-                            header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
 
                             JSONArray JsonItem = (JSONArray) ((JSONObject) object).get("item");
                             for (int a = 0; a <JsonItem.length(); a++) {
@@ -252,10 +246,40 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
                                 item.setKet((String)((JSONObject) objItem).get("void_keterangan"));
                                 header.addItem(item);
                             }
+
+                            JSONArray JsonBayarItem = (JSONArray) ((JSONObject) object).get("itemBayar");
+                            for (int a = 0; a <JsonBayarItem.length(); a++) {
+                                Object objItemBayar = JsonBayarItem.getJSONObject(a);
+                                ReportEkspedisiItemBayarModel itemBayar = new ReportEkspedisiItemBayarModel();
+                                itemBayar.setIdBayar((String)((JSONObject) objItemBayar).get("pembayaran_id"));
+                                itemBayar.setTglBayar((String)((JSONObject) objItemBayar).get("pembayaran_date"));
+                                itemBayar.setIdEkspedisi((String)((JSONObject) objItemBayar).get("ekspedisi_id"));
+                                itemBayar.setKeterangan((String)((JSONObject) objItemBayar).get("pembayaran_keterangan"));
+                                itemBayar.setGrandtotal(new BigDecimal((String)((JSONObject) objItemBayar).get("grandtotal")));
+                                itemBayar.setVoidKet((String)((JSONObject) objItemBayar).get("void_keterangan"));
+                                header.addBayarItem(itemBayar);
+                            }
+
+                            header.setId((String)((JSONObject) object).get("ekspedisi_id"));
+                            Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("ekspedisi_tanggal"));
+                            header.setTanggal((df2.format(tglTrans.getTime())));
+                            header.setIdCust((String)((JSONObject) object).get("vendor_customer_id"));
+                            header.setNamaCust((String)((JSONObject) object).get("vendor_customer_name"));
+                            header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
+                            header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
+                            header.setStatusbayar((String)((JSONObject) object).get("status_pembayaran"));
+                            header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
+                            header.setDiskon(new BigDecimal((String)((JSONObject) object).get("diskon")));
+                            header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
+                            header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
+                            header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
+                            header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
                             model2.addItem(header);
                         }
+                        adapter		= new AdpEkspedisiViewHeader(ReportEkspedisiActivity.this, R.layout.col_ekspedisi_header, model2.getHeaderList());
+                        lsvData.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                         hideDialog();
-                        //
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -266,7 +290,6 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
                     Toast.makeText(ReportEkspedisiActivity.this,ex.getMessage(), Toast.LENGTH_SHORT).show();
                     hideDialog();
                 }
-
             }
         }, new com.android.volley.Response.ErrorListener() {
 

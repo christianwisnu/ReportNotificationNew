@@ -25,7 +25,6 @@ public class ReportEkspedisiViewActivity extends AppCompatActivity {
         model2 = (ReportEkspedisiModel) i.getSerializableExtra("model");
 
         imgBack = (ImageView)findViewById(R.id.imgViewKriteriareport_header_ekspedisi_Back);
-        lsvdata = (ListView)findViewById(R.id.LsvReportEkspedisiHeader);
 
         /*adapter		= new AdpTransaksi2(ReportEkspedisiViewActivity.this, R.layout.col_transaksi2, model2.getHeaderList());
         lsvdata.setAdapter(adapter);*/

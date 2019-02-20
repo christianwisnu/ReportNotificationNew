@@ -21,7 +21,7 @@ public class ReportEkspedisiModel implements Serializable{
     }
 
     public void addItem(ReportEkspedisiHeaderModel itemModel){
-        headerList.add(itemModel);
+        getHeaderList().add(itemModel);
     }
 
 }

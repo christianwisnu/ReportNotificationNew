@@ -21,13 +21,19 @@ public class ReportEkspedisiHeaderModel implements Serializable {
     private BigDecimal grandTotal;
     private String keterangan;
     private List<ReportEkspedisiItemModel> itemList;
+    private List<ReportEkspedisiItemBayarModel> itemBayarList;
 
     public ReportEkspedisiHeaderModel(){
         this.itemList = new ArrayList<ReportEkspedisiItemModel>();
+        this.itemBayarList = new ArrayList<ReportEkspedisiItemBayarModel>();
     }
 
     public void addItem(ReportEkspedisiItemModel itemModel){
         getItemList().add(itemModel);
+    }
+
+    public void addBayarItem(ReportEkspedisiItemBayarModel itemBayarModel){
+        getItemBayarList().add(itemBayarModel);
     }
 
     public String getId() {
@@ -140,5 +146,13 @@ public class ReportEkspedisiHeaderModel implements Serializable {
 
     public void setItemList(List<ReportEkspedisiItemModel> itemList) {
         this.itemList = itemList;
+    }
+
+    public List<ReportEkspedisiItemBayarModel> getItemBayarList() {
+        return itemBayarList;
+    }
+
+    public void setItemBayarList(List<ReportEkspedisiItemBayarModel> itemBayarList) {
+        this.itemBayarList = itemBayarList;
     }
 }
