@@ -35,7 +35,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:counterEnabled="true"
-                        app:counterMaxLength="10"
+                        app:counterMaxLength="100"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:counterTextAppearance="@style/CounterText"
                         app:errorEnabled="true"
@@ -46,8 +46,9 @@
                             android:id="@+id/eLoginUserID"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Your NBI/NIK"
-                            android:ems="10" />
+                            android:hint="Your Email"
+                            android:ems="10"
+                            android:inputType="textEmailAddress"/>
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -80,7 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:counterEnabled="true"
-                        app:counterMaxLength="10"
+                        app:counterMaxLength="100"
                         app:counterOverflowTextAppearance="@style/CounterOverFlow"
                         app:counterTextAppearance="@style/CounterText"
                         app:errorEnabled="true"

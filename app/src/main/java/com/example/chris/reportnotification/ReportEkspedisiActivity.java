@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -68,6 +69,7 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
     private String idCust;
     private int RESULT_CUST = 2;
     private AdpEkspedisiViewHeader adapter;
+    private ArrayList<ReportEkspedisiHeaderModel> columnlist= new ArrayList<ReportEkspedisiHeaderModel>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +133,17 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
                             String.valueOf(spTipebayar.getSelectedItem()).equals("Semua")?"%":String.valueOf(spTipebayar.getSelectedItem()),
                             df.format(tglFrom), df.format(tglTo));
                 }
+            }
+        });
+
+        lsvData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ReportEkspedisiHeaderModel headerModel = columnlist.get(position);
+                Intent i = new Intent(ReportEkspedisiActivity.this, ReportEkspedisiViewActivity.class);
+                i.putExtra("headerModel", headerModel);
+                startActivity(i);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -274,9 +287,9 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
                             header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
                             header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
                             header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
-                            model2.addItem(header);
+                            columnlist.add(header);
                         }
-                        adapter		= new AdpEkspedisiViewHeader(ReportEkspedisiActivity.this, R.layout.col_ekspedisi_header, model2.getHeaderList());
+                        adapter		= new AdpEkspedisiViewHeader(ReportEkspedisiActivity.this, R.layout.col_ekspedisi_header, columnlist);
                         lsvData.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                         hideDialog();

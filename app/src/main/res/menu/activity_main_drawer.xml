@@ -16,11 +16,11 @@
         </menu>
     </item>
 
-    <!--<group android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/logout"
             android:icon="@mipmap/ic_action_exit_black"
             android:title="Logout" />
-    </group>-->
+    </group>
 
 </menu>

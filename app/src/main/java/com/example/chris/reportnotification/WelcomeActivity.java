@@ -35,12 +35,11 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent;
-                intent=new Intent(WelcomeActivity.this, MainActivity.class);
-                /*if(userId==null){
+                if(userId==null){
                     intent=new Intent(WelcomeActivity.this, LoginActivity.class);
                 }else{
                     intent=new Intent(WelcomeActivity.this, MainActivity.class);
-                }*/
+                }
                 startActivity(intent);
                 finish();
             }

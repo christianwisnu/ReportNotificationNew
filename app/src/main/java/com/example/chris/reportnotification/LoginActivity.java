@@ -101,13 +101,12 @@ public class LoginActivity extends AppCompatActivity {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("value").equals("false")) {
-                                    String nama = jsonRESULTS.getJSONObject("user").getString("vc_username") == null ? "" :
-                                            jsonRESULTS.getJSONObject("user").getString("vc_username");
-                                    String uId = jsonRESULTS.getJSONObject("user").getString("c_userid") == null ? "" :
-                                            jsonRESULTS.getJSONObject("user").getString("c_userid");
-                                    String email = jsonRESULTS.getJSONObject("user").getString("vc_email") == null ? "" :
-                                            jsonRESULTS.getJSONObject("user").getString("vc_email");
-
+                                    String nama = jsonRESULTS.getJSONObject("user").getString("name") == null ? "" :
+                                            jsonRESULTS.getJSONObject("user").getString("name");
+                                    String uId = jsonRESULTS.getJSONObject("user").getString("id") == null ? "" :
+                                            jsonRESULTS.getJSONObject("user").getString("id");
+                                    String email = jsonRESULTS.getJSONObject("user").getString("email") == null ? "" :
+                                            jsonRESULTS.getJSONObject("user").getString("email");
                                     hideDialog();
                                     prefUtil.saveUserInfo(uId, nama, email);
                                     Toast.makeText(LoginActivity.this, jsonRESULTS.getString("message"), Toast.LENGTH_SHORT).show();
@@ -145,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
         if (eUserID.getText().toString().isEmpty()) {
             value = false;
             requestFocus(eUserID);
-            inputLayoutUser.setError(getString(R.string.err_msg_user));
+            inputLayoutUser.setError(getString(R.string.err_msg_email));
         } else {
             value = true;
             inputLayoutUser.setError(null);

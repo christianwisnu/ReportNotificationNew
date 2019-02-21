@@ -3,6 +3,7 @@ package com.example.chris.reportnotification;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +16,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import service.BaseApiService;
 import utilities.Link;
+import utilities.PrefUtil;
 import utilities.RequestPermissionHandler;
 
 public class MainActivity extends AppCompatActivity
@@ -36,6 +41,10 @@ public class MainActivity extends AppCompatActivity
     private ProgressDialog pDialog;
     private RequestPermissionHandler mRequestPermissionHandler;
     private List<String> listPermissionsNeeded;
+    private PrefUtil pref;
+    private SharedPreferences shared;
+    private String userId, username, email;
+    private TextView txtEmail, txtNama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +55,21 @@ public class MainActivity extends AppCompatActivity
             checkAndRequestPermissions();
             openPermission();
         }
+        pref = new PrefUtil(this);
         mApiService         = Link.getAPIService();
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
+        try{
+            shared  = pref.getUserInfo();
+            userId = shared.getString(PrefUtil.ID, null);
+            username = shared.getString(PrefUtil.NAME, null);
+            email = shared.getString(PrefUtil.EMAIL, null);
+        }catch (Exception e){e.getMessage();}
+
         FirebaseMessaging.getInstance().subscribeToTopic("ADMIN");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Report App");
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -60,8 +78,15 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        invalidateOptionsMenu();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+        txtEmail = (TextView)header.findViewById(R.id.txtNavHeaderEmail);
+        txtNama = (TextView)header.findViewById(R.id.txtNavHeaderNama);
+
+        txtEmail.setText(email);
+        txtNama.setText(username);
     }
 
     private void checkAndRequestPermissions() {
@@ -108,6 +133,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.action_settings);
+        item.setVisible(false);
         return true;
     }
 
@@ -138,9 +165,13 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this, ReportEkspedisiActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-        } /*else if (id == R.id.logout) {
-
-        }*/
+        } else if (id == R.id.logout) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("ADMIN");
+            pref.clear();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

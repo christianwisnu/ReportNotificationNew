@@ -18,7 +18,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("login.php")
-    Call<ResponseBody> loginRequest(@Field("userid") String id,
+    Call<ResponseBody> loginRequest(@Field("email") String email,
                                     @Field("password") String pasw);
 
     @FormUrlEncoded

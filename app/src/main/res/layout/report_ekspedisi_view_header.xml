@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/md_white">
 
@@ -72,6 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pembayaran"
+                        android:textStyle="bold"
                         android:textColor="@color/md_black"/>
 
                 </LinearLayout>
@@ -202,25 +203,22 @@
 
             </LinearLayout>
 
-            <FrameLayout
-                android:background="@color/md_white"
-                android:layout_marginTop="7dp"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="vertical"
+            <ListView
+                android:divider="@color/md_grey_500"
+                android:dividerHeight="1dp"
+                android:id="@+id/LsvItemHeaderReport"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:scrollbarSize="3dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"
+                android:smoothScrollbar="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp">
-
-                <ListView
-                    android:divider="@color/md_grey_500"
-                    android:dividerHeight="1dp"
-                    android:id="@+id/LsvItemHeaderReport"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </ListView>
-
-            </FrameLayout>
+            </ListView>
 
             <LinearLayout
                 android:id="@+id/linHeaderBayar"
@@ -237,26 +235,23 @@
 
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/frmHeaderItemBayar"
-                android:background="@color/md_white"
-                android:layout_marginTop="7dp"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:orientation="vertical"
+            <ListView
+                android:divider="@color/md_grey_500"
+                android:dividerHeight="1dp"
+                android:id="@+id/LsvItemBayarHeaderReport"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:scrollbarSize="3dp"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:scrollingCache="true"
+                android:smoothScrollbar="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp">
 
-                <ListView
-                    android:divider="@color/md_grey_500"
-                    android:dividerHeight="1dp"
-                    android:id="@+id/LsvItemBayarHeaderReport"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </ListView>
-
-            </FrameLayout>
+            </ListView>
 
             <LinearLayout
                 android:layout_marginTop="15dp"
@@ -443,6 +438,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/md_black"
+                            android:textStyle="bold"
                             android:text="Grand Total" />
 
                     </LinearLayout>
@@ -454,12 +451,13 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:textStyle="bold"
                             android:id="@+id/txtHeaderGtotTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. Grand Total"
                             android:gravity="right"
-                            android:textColor="@color/md_black"/>
+                            android:textColor="@color/Red"/>
                     </LinearLayout>
 
                 </LinearLayout>
