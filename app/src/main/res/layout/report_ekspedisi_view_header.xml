@@ -199,7 +199,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Item: "/>
+                    android:textColor="@color/md_black"
+                    android:textStyle="bold"
+                    android:text="Item Detail : "/>
 
             </LinearLayout>
 
@@ -231,7 +233,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Pembayaran: "/>
+                    android:textStyle="bold"
+                    android:textColor="@color/md_black"
+                    android:text="Pembayaran : "/>
 
             </LinearLayout>
 
