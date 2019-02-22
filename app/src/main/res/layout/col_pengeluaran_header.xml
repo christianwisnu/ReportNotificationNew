@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/md_white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtColPengeluaranHeaderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:textSize="14dp"
+                android:textColor="@color/md_green_600" />
+
+            <TextView
+                android:id="@+id/txtColPengeluaranHeaderTgl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/txtColPengeluaranHeadernamaVendor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vendor"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/md_black"/>
+
+            <TextView
+                android:id="@+id/txtColPengeluaranHeaderTipeBayar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipe Bayar"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

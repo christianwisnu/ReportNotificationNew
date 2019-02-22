@@ -16,7 +16,7 @@
             android:layout_width="@dimen/actionbar_dimen"
             android:layout_height="@dimen/actionbar_dimen"
             android:scaleType="centerInside"
-            android:id="@+id/imgViewKriteriareport_header_ekspedisi_Back"
+            android:id="@+id/imgViewKriteriareport_header_pengeluaran_Back"
             android:src="@mipmap/ic_action_arrow_left" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textColor="@color/White_Snow"
-            android:text="DETAIL EKSPEDISI REPORT"
+            android:text="DETAIL PENGELUARAN REPORT"
             android:textSize="20dp"/>
 
     </LinearLayout>
@@ -39,45 +39,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/md_white"
-                android:orientation="horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/status"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/md_white"
-                    android:layout_marginLeft="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Status Pembayaran"/>
-
-                    <TextView
-                        android:id="@+id/txtHeaderStatusPembayaran"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textStyle="bold"
-                        android:textColor="@color/md_black"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_marginTop="5dp"
@@ -108,7 +69,7 @@
                         android:text="ID Transaksi"/>
 
                     <TextView
-                        android:id="@+id/txtHeaderIdTrans"
+                        android:id="@+id/txtHeaderpengeluaranIdTrans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -128,7 +89,7 @@
                         android:text="Tanggal Transaksi"/>
 
                     <TextView
-                        android:id="@+id/txtHeaderTglTrans"
+                        android:id="@+id/txtHeaderpengeluaranTglTrans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -157,10 +118,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Customer"/>
+                        android:text="Vendor"/>
 
                     <TextView
-                        android:id="@+id/txtHeaderCustTrans"
+                        android:id="@+id/txtHeaderpengeluaranVendorTrans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -180,7 +141,7 @@
                         android:text="Tipe Pembayaran"/>
 
                     <TextView
-                        android:id="@+id/txtHeaderTipebayarTrans"
+                        android:id="@+id/txtHeaderpengeluaranTipebayarTrans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -208,7 +169,7 @@
             <ListView
                 android:divider="@color/md_grey_500"
                 android:dividerHeight="1dp"
-                android:id="@+id/LsvItemHeaderReport"
+                android:id="@+id/LsvItempengeluaranHeaderReport"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -220,41 +181,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp">
-            </ListView>
-
-            <LinearLayout
-                android:id="@+id/linHeaderBayar"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/md_black"
-                    android:text="Pembayaran : "/>
-
-            </LinearLayout>
-
-            <ListView
-                android:divider="@color/md_grey_500"
-                android:dividerHeight="1dp"
-                android:id="@+id/LsvItemBayarHeaderReport"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:scrollbarSize="3dp"
-                android:scrollbarStyle="outsideOverlay"
-                android:scrollbars="vertical"
-                android:scrollingCache="true"
-                android:smoothScrollbar="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp">
-
             </ListView>
 
             <LinearLayout
@@ -298,7 +224,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txtHeaderSubTotalTrans"
+                            android:id="@+id/txtHeaderpengeluaranSubTotalTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. "
@@ -335,7 +261,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txtHeaderDiskonTrans"
+                            android:id="@+id/txtHeaderpengeluaranDiskonTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. "
@@ -372,7 +298,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txtHeaderTotalTrans"
+                            android:id="@+id/txtHeaderpengeluaranTotalTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. "
@@ -409,7 +335,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/txtHeaderDPTrans"
+                            android:id="@+id/txtHeaderpengeluaranDPTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. "
@@ -456,7 +382,7 @@
 
                         <TextView
                             android:textStyle="bold"
-                            android:id="@+id/txtHeaderGtotTrans"
+                            android:id="@+id/txtHeaderpengeluaranGtotTrans"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rp. "

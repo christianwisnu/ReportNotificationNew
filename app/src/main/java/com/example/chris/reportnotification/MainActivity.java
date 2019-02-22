@@ -159,7 +159,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.report_pengeluaran) {
-
+            Intent i = new Intent(MainActivity.this, ReportPengeluaranActivity.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         } else if (id == R.id.report_ekspedisi) {
             Intent i = new Intent(MainActivity.this, ReportEkspedisiActivity.class);
             startActivity(i);

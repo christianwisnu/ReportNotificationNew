@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.chris.reportnotification.MainActivity;
 import com.example.chris.reportnotification.R;
+import com.example.chris.reportnotification.ReportEkspedisiViewDetailActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -27,13 +28,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * this method is only generating push notification
      */
     private void sendNotification(String title, String messageBody){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, ReportEkspedisiViewDetailActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("judul", messageBody);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_ONE_SHOT);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_menu_send)
+                .setSmallIcon(R.drawable.icon)
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
@@ -42,5 +45,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0,notificationBuilder.build());
+
     }
 }
