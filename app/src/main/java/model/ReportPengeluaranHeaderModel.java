@@ -18,7 +18,7 @@ public class ReportPengeluaranHeaderModel implements Serializable {
     private BigDecimal total;
     private BigDecimal dpNominal;
     private BigDecimal grandTotal;
-    private String keterangan;
+    private String keteranganHeader;
     private List<ReportPengeluaranItemModel> itemList;
 
     public ReportPengeluaranHeaderModel(){
@@ -117,12 +117,12 @@ public class ReportPengeluaranHeaderModel implements Serializable {
         this.grandTotal = grandTotal;
     }
 
-    public String getKeterangan() {
-        return keterangan;
+    public String getKeteranganHeader() {
+        return keteranganHeader;
     }
 
-    public void setKeterangan(String keterangan) {
-        this.keterangan = keterangan;
+    public void setKeteranganHeader(String keteranganHeader) {
+        this.keteranganHeader = keteranganHeader;
     }
 
     public List<ReportPengeluaranItemModel> getItemList() {

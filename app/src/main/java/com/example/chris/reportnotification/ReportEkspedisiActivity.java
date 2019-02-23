@@ -226,6 +226,7 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
     private void getData(String Url, final String customer, final String tipebayar,
                          final String stglFrom, final String stglTo){
         model2 = new ReportEkspedisiModel();
+        columnlist= new ArrayList<ReportEkspedisiHeaderModel>();
         pDialog.setMessage("Loading....");
         showDialog();
         StringRequest register = new StringRequest(Request.Method.POST, Url, new com.android.volley.Response.Listener<String>() {

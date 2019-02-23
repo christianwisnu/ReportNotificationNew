@@ -29,6 +29,7 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".ReportPengeluaranActivity"/>
         <activity android:name=".ReportPengeluaranViewActivity"/>
+        <activity android:name=".ReportPengeluaranViewDetailActivity"/>
         <activity android:name=".ReportEkspedisiActivity"/>
         <activity android:name=".ReportEkspedisiViewActivity"/>
         <activity android:name=".ReportEkspedisiViewDetailActivity"/>

@@ -128,7 +128,7 @@ public class ReportPengeluaranActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validatetanggalFrom() && validatetanggalTo() && validatePeriodeTgl() && validateVendor()){
-                    getData(Link.BASE_URL_API+"getModel2.php", ckAllVendor.isChecked()?"%":idVendor,
+                    getData(Link.BASE_URL_API+"getReportPengeluaran.php", ckAllVendor.isChecked()?"%":idVendor,
                             String.valueOf(spTipebayar.getSelectedItem()).equals("Semua")?"%":String.valueOf(spTipebayar.getSelectedItem()),
                             df.format(tglFrom), df.format(tglTo));
                 }
@@ -208,6 +208,7 @@ public class ReportPengeluaranActivity extends AppCompatActivity {
     private void getData(String Url, final String vendor, final String tipebayar,
                          final String stglFrom, final String stglTo){
         model2 = new ReportPengeluaranModel();
+        columnlist= new ArrayList<ReportPengeluaranHeaderModel>();
         pDialog.setMessage("Loading....");
         showDialog();
         StringRequest register = new StringRequest(Request.Method.POST, Url, new com.android.volley.Response.Listener<String>() {
@@ -248,7 +249,7 @@ public class ReportPengeluaranActivity extends AppCompatActivity {
                             header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
                             header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
                             header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
-                            header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
+                            header.setKeteranganHeader((String)((JSONObject) object).get("void_keterangan"));
                             columnlist.add(header);
                         }
                         adapter		= new AdpPengeluaranViewHeader(ReportPengeluaranActivity.this, R.layout.col_pengeluaran_header, columnlist);

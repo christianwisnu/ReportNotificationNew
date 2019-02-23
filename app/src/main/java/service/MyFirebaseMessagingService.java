@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.chris.reportnotification.MainActivity;
 import com.example.chris.reportnotification.R;
 import com.example.chris.reportnotification.ReportEkspedisiViewDetailActivity;
+import com.example.chris.reportnotification.ReportPengeluaranViewDetailActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -28,7 +29,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * this method is only generating push notification
      */
     private void sendNotification(String title, String messageBody){
-        Intent intent = new Intent(this, ReportEkspedisiViewDetailActivity.class);
+        String[] a = messageBody.split("\\|");
+        String jenisTrans = a[0];
+        Intent intent;
+        if(jenisTrans.equals("EKSPEDISI")){
+            intent = new Intent(this, ReportEkspedisiViewDetailActivity.class);
+        }else{//PENGELUARAN
+            intent = new Intent(this, ReportPengeluaranViewDetailActivity.class);
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("judul", messageBody);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_ONE_SHOT);

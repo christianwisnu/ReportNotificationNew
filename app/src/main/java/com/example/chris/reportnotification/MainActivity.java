@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences shared;
     private String userId, username, email;
     private TextView txtEmail, txtNama;
+    private String judul, jenisTrans, noTrans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,21 @@ public class MainActivity extends AppCompatActivity
 
         txtEmail.setText(email);
         txtNama.setText(username);
+        Bundle i = getIntent().getExtras();
+        if (i != null){
+            try {
+                judul =  i.getString("judul");
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+        if(judul!=null){
+            String[] a = judul.split("\\|");
+            jenisTrans = a[0];
+            noTrans = a[1];
+            Toast.makeText(MainActivity.this, jenisTrans+" "+noTrans, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void checkAndRequestPermissions() {
