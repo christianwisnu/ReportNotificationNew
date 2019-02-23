@@ -41,7 +41,7 @@ public class ReportPengeluaranViewActivity extends AppCompatActivity {
         txtDiskon = (TextView)findViewById(R.id.txtHeaderpengeluaranDiskonTrans);
         txtTotal = (TextView)findViewById(R.id.txtHeaderpengeluaranTotalTrans);
         txtDp = (TextView)findViewById(R.id.txtHeaderpengeluaranDPTrans);
-        txtGrandTotal = (TextView)findViewById(R.id.txtHeaderpengeluaranGtotTrans);
+        txtGrandTotal = (TextView)findViewById(R.id.txtHeaderpengeluaranGtotTrans);//
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
