@@ -10,17 +10,16 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
@@ -31,8 +30,7 @@ import utilities.Link;
 import utilities.PrefUtil;
 import utilities.RequestPermissionHandler;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {//implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
     private AlertDialog alert;
@@ -45,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private String userId, username, email;
     private TextView txtEmail, txtNama;
     private String judul, jenisTrans, noTrans;
+    private ImageView imgPengeluaran, imgEkspedisi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +65,14 @@ public class MainActivity extends AppCompatActivity
             email = shared.getString(PrefUtil.EMAIL, null);
         }catch (Exception e){e.getMessage();}
 
+        FirebaseApp.initializeApp(this);
         FirebaseMessaging.getInstance().subscribeToTopic("ADMIN");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Report App");
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -81,16 +81,19 @@ public class MainActivity extends AppCompatActivity
         invalidateOptionsMenu();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header=navigationView.getHeaderView(0);
-        txtEmail = (TextView)header.findViewById(R.id.txtNavHeaderEmail);
-        txtNama = (TextView)header.findViewById(R.id.txtNavHeaderNama);
+        View header=navigationView.getHeaderView(0);*/
+        txtEmail = (TextView)findViewById(R.id.txtEmailUserLogin);
+        txtNama = (TextView)findViewById(R.id.txtNamaUserLogin);
+        imgPengeluaran = (ImageView)findViewById(R.id.imgMenuReportPengeluaran);
+        imgEkspedisi = (ImageView) findViewById(R.id.imgMenuReportEkspedisi);
 
-        txtEmail.setText(email);
-        txtNama.setText(username);
+        txtEmail.setText("Email: "+email);
+        txtNama.setText("Name: "+username);
+
         Bundle i = getIntent().getExtras();
         if (i != null){
             try {
-                judul =  i.getString("judul");
+                judul =  i.getString("isi");
             } catch (Exception e) {
                 e.getMessage();
             }
@@ -99,9 +102,37 @@ public class MainActivity extends AppCompatActivity
             String[] a = judul.split("\\|");
             jenisTrans = a[0];
             noTrans = a[1];
-            Toast.makeText(MainActivity.this, jenisTrans+" "+noTrans, Toast.LENGTH_SHORT).show();
+            Intent intent;
+            if(jenisTrans.equals("EKSPEDISI")){
+                intent = new Intent(this, ReportEkspedisiViewDetailActivity.class);
+                intent.putExtra("nomor", noTrans);
+                startActivity(intent);
+            }else if(jenisTrans.equals("PENGELUARAN")){//
+                intent = new Intent(this, ReportPengeluaranViewDetailActivity.class);
+                intent.putExtra("nomor", noTrans);
+                startActivity(intent);
+            }else{
+                Toast.makeText(MainActivity.this, "FORMAT NOTIFIKASI SALAH", Toast.LENGTH_LONG).show();
+            }
         }
 
+        imgPengeluaran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ReportPengeluaranActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        imgEkspedisi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ReportEkspedisiActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
     }
 
     private void checkAndRequestPermissions() {
@@ -135,21 +166,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item = menu.findItem(R.id.action_settings);
-        item.setVisible(false);
         return true;
     }
 
@@ -161,11 +180,27 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("ADMIN");
+            pref.clear();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -193,19 +228,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/*/
 }
-/*list vendor
-list kapal
-list jenis kendaraan
-
-lap ekspedisi
-	tgl from - to,
-	kode cust vendor & check all (WHERE vendor/cust/all)
-	tipe pembayaran (Cash, Credit, DP)
-	status pembayaran (Lunas, Bayar Sebagian, Blm Bayar)
-
-lap pengeluaran
-	tgl from - to,
-	kode cust vendor & check all (WHERE vendor/cust/all)
-	tipe pembayaran (Cash, Credit, DP)
-	*/

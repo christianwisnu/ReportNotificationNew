@@ -17,7 +17,7 @@
             android:id="@+id/toolbarListVendor"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/md_blue_900"
+            android:background="@color/request"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>

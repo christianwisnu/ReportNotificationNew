@@ -54,7 +54,7 @@ public class ReportEkspedisiViewDetailActivity extends AppCompatActivity {
     private NumberFormat rupiah	= NumberFormat.getNumberInstance(new Locale("in", "ID"));
     private AdpReportEkspedisiViewBayar adapterBayar;
     private AdpReportEkspedisiViewItem adapterItem;
-    private String judul, noTrans, jenisTrans;
+    private String noTrans;
     private ProgressDialog pDialog;
     private SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
     private String getLaporanHarian	="getEkspedisiById.php";
@@ -68,14 +68,11 @@ public class ReportEkspedisiViewDetailActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         if (i != null){
             try {
-                judul =  i.getString("judul");
+                noTrans =  i.getString("nomor");
             } catch (Exception e) {
                 e.getMessage();
             }
         }
-        String[] a = judul.split("\\|");
-        jenisTrans = a[0];
-        noTrans = a[1];
 
         imgBack = (ImageView)findViewById(R.id.imgViewKriteriareport_header_ekspedisi_Back);
         txtStatusBayar = (TextView)findViewById(R.id.txtHeaderStatusPembayaran);
@@ -99,10 +96,10 @@ public class ReportEkspedisiViewDetailActivity extends AppCompatActivity {
             }
         });
 
-        getDataEkspedisi(Link.BASE_URL_API+getLaporanHarian, noTrans, jenisTrans);
+        getDataEkspedisi(Link.BASE_URL_API+getLaporanHarian, noTrans);
     }
 
-    private void getDataEkspedisi(String Url, final String idTrans, final String jenisTrans){
+    private void getDataEkspedisi(String Url, final String idTrans){
         pDialog.setMessage("Loading Data....");
         showDialog();
         StringRequest register = new StringRequest(Request.Method.POST, Url, new com.android.volley.Response.Listener<String>() {
@@ -200,7 +197,6 @@ public class ReportEkspedisiViewDetailActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("idTrans", idTrans);
-                params.put("jenisTrans", jenisTrans);
                 return params;
             }
             @Override

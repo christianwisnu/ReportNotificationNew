@@ -13,14 +13,107 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:background="@color/md_white">
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:background="@drawable/background"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left">
+
+            <TextView
+                android:id="@+id/txtEmailUserLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email "
+                android:textSize="17dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/txtNamaUserLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama "
+                android:textSize="17dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/md_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_black"
+                android:text="CV. TRIBA BASWARA"
+                android:textSize="30dp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:background="@drawable/depan1"
+                        android:id="@+id/imgMenuReportPengeluaran"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report Pengeluaran"
+                        android:textColor="@color/md_black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="3dp"
+                    android:layout_height="140dp"
+                    android:background="@color/md_black"/>
+
+                <LinearLayout
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:background="@drawable/depan2"
+                        android:id="@+id/imgMenuReportEkspedisi"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp" />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report Ekspedisi"
+                        android:textColor="@color/md_black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

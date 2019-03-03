@@ -47,7 +47,7 @@ public class ReportPengeluaranViewDetailActivity extends AppCompatActivity {
     private ListView  lsvItem;
     private NumberFormat rupiah	= NumberFormat.getNumberInstance(new Locale("in", "ID"));
     private AdpReportPengeluaranViewItem adapterItem;
-    private String judul, noTrans, jenisTrans;
+    private String noTrans;
     private ProgressDialog pDialog;
     private SimpleDateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
     private String getLaporanHarian	="getReportPengeluaranById.php";
@@ -61,14 +61,11 @@ public class ReportPengeluaranViewDetailActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         if (i != null){
             try {
-                judul =  i.getString("judul");
+                noTrans =  i.getString("nomor");
             } catch (Exception e) {
                 e.getMessage();
             }
         }
-        String[] a = judul.split("\\|");
-        jenisTrans = a[0];
-        noTrans = a[1];
 
         imgBack = (ImageView)findViewById(R.id.imgViewKriteriareport_header_pengeluaran_Back);
         txtIdTrans = (TextView)findViewById(R.id.txtHeaderpengeluaranIdTrans);
@@ -89,10 +86,10 @@ public class ReportPengeluaranViewDetailActivity extends AppCompatActivity {
             }
         });
 
-        getDataEkspedisi(Link.BASE_URL_API+getLaporanHarian, noTrans, jenisTrans);
+        getDataEkspedisi(Link.BASE_URL_API+getLaporanHarian, noTrans);
     }
 
-    private void getDataEkspedisi(String Url, final String idTrans, final String jenisTrans){
+    private void getDataEkspedisi(String Url, final String idTrans){
         pDialog.setMessage("Loading Data....");
         showDialog();
 
@@ -171,7 +168,6 @@ public class ReportPengeluaranViewDetailActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("idTrans", idTrans);
-                params.put("jenisTrans", jenisTrans);
                 return params;
             }
             @Override

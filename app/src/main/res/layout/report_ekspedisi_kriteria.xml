@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="@color/md_blue_900"
+        android:background="@color/request"
         android:layout_height="@dimen/actionbar_dimen">
 
         <ImageView
