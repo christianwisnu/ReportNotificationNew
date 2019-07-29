@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_black"
-                android:text="CV. TRIBA BASWARA"
+                android:text="CV. TIBRA BASWARA"
                 android:textSize="30dp"
                 android:textStyle="bold"/>
 

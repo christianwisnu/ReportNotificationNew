@@ -235,70 +235,69 @@ public class ReportEkspedisiActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonrespon = new JSONObject(response);
-                    String message = (String) jsonrespon.get("message");
-                    if(message.trim().equals("1")){
-                        if(jsonrespon.getJSONArray("header").isNull(0)){
-                            Toast.makeText(ReportEkspedisiActivity.this,"TIDAK ADA DATA", Toast.LENGTH_LONG).show();
-                        }else{
-                            JSONArray JsonHeader = jsonrespon.getJSONArray("header");
-                            for (int i = 0; i <JsonHeader.getJSONArray(0).length(); i++) {
-                                Object object = JsonHeader.getJSONArray(0).get(i);
-                                ReportEkspedisiHeaderModel header 	= new ReportEkspedisiHeaderModel();
+                    Integer sukses = (Integer) jsonrespon.get("success");
+                    if(sukses == 0){
+                        String message = (String) jsonrespon.get("message");
+                        Toast.makeText(ReportEkspedisiActivity.this, message, Toast.LENGTH_LONG).show();
+                    }else{
+                        JSONArray JsonHeader = jsonrespon.getJSONArray("header");
+                        for (int i = 0; i <JsonHeader.getJSONArray(0).length(); i++) {
+                            Object object = JsonHeader.getJSONArray(0).get(i);
+                            ReportEkspedisiHeaderModel header 	= new ReportEkspedisiHeaderModel();
 
-                                JSONArray JsonItem = (JSONArray) ((JSONObject) object).get("item");
-                                for (int a = 0; a <JsonItem.length(); a++) {
-                                    Object objItem = JsonItem.getJSONObject(a);
-                                    ReportEkspedisiItemModel item = new ReportEkspedisiItemModel();
-                                    item.setIdHeader((String)((JSONObject) objItem).get("ekspedisi_id"));
-                                    item.setIdDetail((Integer)((JSONObject) objItem).get("ekspedisi_detail_id"));
-                                    item.setIndex((Integer)((JSONObject) objItem).get("index"));
-                                    item.setIdKapal((Integer)((JSONObject) objItem).get("kapal_id"));
-                                    item.setNamaKapal((String)((JSONObject) objItem).get("kapal_name"));
-                                    item.setIdJenisKendaraan((Integer)((JSONObject) objItem).get("jenis_kendaraan_id"));
-                                    item.setNamaJenisKendaraan((String)((JSONObject) objItem).get("jenis_kendaraan_name"));
-                                    item.setPlatNo((String)((JSONObject) objItem).get("plat_nomor"));
-                                    item.setNamaPemilik((String)((JSONObject) objItem).get("pemilik_nama"));
-                                    item.setNamaSupir((String)((JSONObject) objItem).get("supir_nama"));
-                                    item.setHarga(new BigDecimal((String)((JSONObject) objItem).get("harga")));
-                                    item.setKet((String)((JSONObject) objItem).get("void_keterangan"));
-                                    header.addItem(item);
-                                }
-
-                                JSONArray JsonBayarItem = (JSONArray) ((JSONObject) object).get("itemBayar");
-                                for (int a = 0; a <JsonBayarItem.length(); a++) {
-                                    Object objItemBayar = JsonBayarItem.getJSONObject(a);
-                                    ReportEkspedisiItemBayarModel itemBayar = new ReportEkspedisiItemBayarModel();
-                                    itemBayar.setIdBayar((String)((JSONObject) objItemBayar).get("pembayaran_id"));
-                                    itemBayar.setTglBayar((String)((JSONObject) objItemBayar).get("pembayaran_date"));
-                                    itemBayar.setIdEkspedisi((String)((JSONObject) objItemBayar).get("ekspedisi_id"));
-                                    itemBayar.setKeterangan((String)((JSONObject) objItemBayar).get("pembayaran_keterangan"));
-                                    itemBayar.setGrandtotal(new BigDecimal((String)((JSONObject) objItemBayar).get("grandtotal")));
-                                    itemBayar.setVoidKet((String)((JSONObject) objItemBayar).get("void_keterangan"));
-                                    header.addBayarItem(itemBayar);
-                                }
-
-                                header.setId((String)((JSONObject) object).get("ekspedisi_id"));
-                                Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("ekspedisi_tanggal"));
-                                header.setTanggal((df2.format(tglTrans.getTime())));
-                                header.setIdCust((String)((JSONObject) object).get("vendor_customer_id"));
-                                header.setNamaCust((String)((JSONObject) object).get("vendor_customer_name"));
-                                header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
-                                header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
-                                header.setStatusbayar((String)((JSONObject) object).get("status_pembayaran"));
-                                header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
-                                header.setDiskon(new BigDecimal((String)((JSONObject) object).get("diskon")));
-                                header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
-                                header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
-                                header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
-                                header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
-                                columnlist.add(header);
+                            JSONArray JsonItem = (JSONArray) ((JSONObject) object).get("item");
+                            for (int a = 0; a <JsonItem.length(); a++) {
+                                Object objItem = JsonItem.getJSONObject(a);
+                                ReportEkspedisiItemModel item = new ReportEkspedisiItemModel();
+                                item.setIdHeader((String)((JSONObject) objItem).get("ekspedisi_id"));
+                                item.setIdDetail((Integer)((JSONObject) objItem).get("ekspedisi_detail_id"));
+                                item.setIndex((Integer)((JSONObject) objItem).get("index"));
+                                item.setIdKapal((Integer)((JSONObject) objItem).get("kapal_id"));
+                                item.setNamaKapal((String)((JSONObject) objItem).get("kapal_name"));
+                                item.setIdJenisKendaraan((Integer)((JSONObject) objItem).get("jenis_kendaraan_id"));
+                                item.setNamaJenisKendaraan((String)((JSONObject) objItem).get("jenis_kendaraan_name"));
+                                item.setPlatNo((String)((JSONObject) objItem).get("plat_nomor"));
+                                item.setNamaPemilik((String)((JSONObject) objItem).get("pemilik_nama"));
+                                item.setNamaSupir((String)((JSONObject) objItem).get("supir_nama"));
+                                item.setHarga(new BigDecimal((String)((JSONObject) objItem).get("harga")));
+                                item.setKet((String)((JSONObject) objItem).get("void_keterangan"));
+                                header.addItem(item);
                             }
-                            adapter		= new AdpEkspedisiViewHeader(ReportEkspedisiActivity.this, R.layout.col_ekspedisi_header, columnlist);
-                            lsvData.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+
+                            JSONArray JsonBayarItem = (JSONArray) ((JSONObject) object).get("itemBayar");
+                            for (int a = 0; a <JsonBayarItem.length(); a++) {
+                                Object objItemBayar = JsonBayarItem.getJSONObject(a);
+                                ReportEkspedisiItemBayarModel itemBayar = new ReportEkspedisiItemBayarModel();
+                                itemBayar.setIdBayar((String)((JSONObject) objItemBayar).get("pembayaran_id"));
+                                itemBayar.setTglBayar((String)((JSONObject) objItemBayar).get("pembayaran_date"));
+                                itemBayar.setIdEkspedisi((String)((JSONObject) objItemBayar).get("ekspedisi_id"));
+                                itemBayar.setKeterangan((String)((JSONObject) objItemBayar).get("pembayaran_keterangan"));
+                                itemBayar.setGrandtotal(new BigDecimal((String)((JSONObject) objItemBayar).get("grandtotal")));
+                                itemBayar.setVoidKet((String)((JSONObject) objItemBayar).get("void_keterangan"));
+                                header.addBayarItem(itemBayar);
+                            }
+
+                            header.setId((String)((JSONObject) object).get("ekspedisi_id"));
+                            Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("ekspedisi_tanggal"));
+                            header.setTanggal((df2.format(tglTrans.getTime())));
+                            header.setIdCust((String)((JSONObject) object).get("vendor_customer_id"));
+                            header.setNamaCust((String)((JSONObject) object).get("vendor_customer_name"));
+                            header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
+                            header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
+                            header.setStatusbayar((String)((JSONObject) object).get("status_pembayaran"));
+                            header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
+                            header.setDiskon(new BigDecimal((String)((JSONObject) object).get("diskon")));
+                            header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
+                            header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
+                            header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
+                            header.setKeterangan((String)((JSONObject) object).get("void_keterangan"));
+                            columnlist.add(header);
                         }
-                        hideDialog();
+                        adapter		= new AdpEkspedisiViewHeader(ReportEkspedisiActivity.this, R.layout.col_ekspedisi_header, columnlist);
+                        lsvData.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
+                    hideDialog();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ReportEkspedisiActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();

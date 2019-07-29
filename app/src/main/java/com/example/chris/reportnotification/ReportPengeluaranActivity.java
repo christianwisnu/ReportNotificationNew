@@ -217,50 +217,49 @@ public class ReportPengeluaranActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonrespon = new JSONObject(response);
-                    String message = (String) jsonrespon.get("message");
-                    if(message.trim().equals("1")){
-                        if(jsonrespon.getJSONArray("header").isNull(0)){
-                            Toast.makeText(ReportPengeluaranActivity.this,"TIDAK ADA DATA", Toast.LENGTH_LONG).show();
-                        }else{
-                            JSONArray JsonHeader = jsonrespon.getJSONArray("header");
-                            for (int i = 0; i <JsonHeader.getJSONArray(0).length(); i++) {
-                                Object object = JsonHeader.getJSONArray(0).get(i);
-                                ReportPengeluaranHeaderModel header 	= new ReportPengeluaranHeaderModel();
+                    Integer sukses = (Integer) jsonrespon.get("success");
+                    if(sukses == 0){
+                        String message = (String) jsonrespon.get("message");
+                        Toast.makeText(ReportPengeluaranActivity.this, message, Toast.LENGTH_LONG).show();
+                    }else{
+                        JSONArray JsonHeader = jsonrespon.getJSONArray("header");
+                        for (int i = 0; i <JsonHeader.getJSONArray(0).length(); i++) {
+                            Object object = JsonHeader.getJSONArray(0).get(i);
+                            ReportPengeluaranHeaderModel header 	= new ReportPengeluaranHeaderModel();
 
-                                JSONArray JsonItem = (JSONArray) ((JSONObject) object).get("item");
-                                for (int a = 0; a <JsonItem.length(); a++) {
-                                    Object objItem = JsonItem.getJSONObject(a);
-                                    ReportPengeluaranItemModel item = new ReportPengeluaranItemModel();
-                                    item.setIdHeader((String)((JSONObject) objItem).get("pengeluaran_id"));
-                                    item.setIndex((Integer)((JSONObject) objItem).get("index"));
-                                    item.setTglShipping((String) ((JSONObject) objItem).get("shipping_date"));
-                                    item.setBuktiBayar((String) ((JSONObject) objItem).get("bukti_pembayaran"));
-                                    item.setHarga(new BigDecimal((String)((JSONObject) objItem).get("harga")));
-                                    item.setKet((String)((JSONObject) objItem).get("void_keterangan"));
-                                    header.addItem(item);
-                                }
-
-                                header.setId((String)((JSONObject) object).get("pengeluaran_id"));
-                                Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("pengeluaran_date"));
-                                header.setTanggal((df2.format(tglTrans.getTime())));
-                                header.setIdVendor((String)((JSONObject) object).get("vendor_customer_id"));
-                                header.setNamaVendor((String)((JSONObject) object).get("vendor_customer_name"));
-                                header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
-                                header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
-                                header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
-                                header.setDiskon(new BigDecimal((String)((JSONObject) object).get("discount")));
-                                header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
-                                header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
-                                header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
-                                header.setKeteranganHeader((String)((JSONObject) object).get("void_keterangan"));
-                                columnlist.add(header);
+                            JSONArray JsonItem = (JSONArray) ((JSONObject) object).get("item");
+                            for (int a = 0; a <JsonItem.length(); a++) {
+                                Object objItem = JsonItem.getJSONObject(a);
+                                ReportPengeluaranItemModel item = new ReportPengeluaranItemModel();
+                                item.setIdHeader((String)((JSONObject) objItem).get("pengeluaran_id"));
+                                item.setIndex((Integer)((JSONObject) objItem).get("index"));
+                                item.setTglShipping((String) ((JSONObject) objItem).get("shipping_date"));
+                                item.setBuktiBayar((String) ((JSONObject) objItem).get("bukti_pembayaran"));
+                                item.setHarga(new BigDecimal((String)((JSONObject) objItem).get("harga")));
+                                item.setKet((String)((JSONObject) objItem).get("void_keterangan"));
+                                header.addItem(item);
                             }
-                            adapter		= new AdpPengeluaranViewHeader(ReportPengeluaranActivity.this, R.layout.col_pengeluaran_header, columnlist);
-                            lsvData.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+
+                            header.setId((String)((JSONObject) object).get("pengeluaran_id"));
+                            Date tglTrans=new SimpleDateFormat("yyyy-MM-dd").parse((String)((JSONObject) object).get("pengeluaran_date"));
+                            header.setTanggal((df2.format(tglTrans.getTime())));
+                            header.setIdVendor((String)((JSONObject) object).get("vendor_customer_id"));
+                            header.setNamaVendor((String)((JSONObject) object).get("vendor_customer_name"));
+                            header.setTipeBayar((String)((JSONObject) object).get("tipe_pembayaran"));
+                            header.setJatuhTempo((Integer)((JSONObject) object).get("jatuh_tempo"));
+                            header.setSubTotal(new BigDecimal((String)((JSONObject) object).get("subtotal")));
+                            header.setDiskon(new BigDecimal((String)((JSONObject) object).get("discount")));
+                            header.setTotal(new BigDecimal((String)((JSONObject) object).get("total")));
+                            header.setDpNominal(new BigDecimal((String)((JSONObject) object).get("dp_nominal")));
+                            header.setGrandTotal(new BigDecimal((String)((JSONObject) object).get("grandtotal")));
+                            header.setKeteranganHeader((String)((JSONObject) object).get("void_keterangan"));
+                            columnlist.add(header);
                         }
-                        hideDialog();
+                        adapter		= new AdpPengeluaranViewHeader(ReportPengeluaranActivity.this, R.layout.col_pengeluaran_header, columnlist);
+                        lsvData.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
+                    hideDialog();
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ReportPengeluaranActivity.this,e.getMessage(), Toast.LENGTH_SHORT).show();
